@@ -3,15 +3,14 @@
   var publicSpreadsheetUrl = 'https://docs.google.com/spreadsheets/d/1vKA_54N2Gipip6mEBF5eyvNiF0TM4VUc4Rh9sAt3LRs/edit?usp=sharing';
 
   function init() {
-    Tabletop.init( { key: publicSpreadsheetUrl,
-                     callback: showInfo,
-                     simpleSheet: true } )
-  }
+          Papa.parse('https://docs.google.com/spreadsheets/d/1vKA_54N2Gipip6mEBF5eyvNiF0TM4VUc4Rh9sAt3LRs/edit?usp=sharing', {
+          download: true,
+          header: true,
+          complete: function(results) {
+            var data = results.data
+            console.log(data)
+          }
+        })
+window.addEventListener('DOMContentLoaded', init)
 
-  function showInfo(data, tabletop) {
-    alert('Successfully processed!')
-    console.log(data);
-  }
-
-  window.addEventListener('DOMContentLoaded', init)
 </script>
