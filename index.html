@@ -1,16 +1,29 @@
-<script src='https://cdnjs.cloudflare.com/ajax/libs/tabletop.js/1.5.1/tabletop.min.js'></script>
-<script type='text/javascript'>    
-  var publicSpreadsheetUrl = 'https://docs.google.com/spreadsheets/d/1vKA_54N2Gipip6mEBF5eyvNiF0TM4VUc4Rh9sAt3LRs/edit?usp=sharing';
+<!DOCTYPE html>
+<html>
+  <body>
 
-  function init() {
-          Papa.parse('https://docs.google.com/spreadsheets/d/1vKA_54N2Gipip6mEBF5eyvNiF0TM4VUc4Rh9sAt3LRs/edit?usp=sharing', {
-          download: true,
-          header: true,
-          complete: function(results) {
-            var data = results.data
-            console.log(data)
-          }
-        })
-window.addEventListener('DOMContentLoaded', init)
+    <p id="food"></p>
 
-</script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/tabletop.js/1.5.1/tabletop.min.js"></script>
+    <script type="text/javascript">
+      var public_spreadsheet_url = 'https://docs.google.com/spreadsheets/d/1vKA_54N2Gipip6mEBF5eyvNiF0TM4VUc4Rh9sAt3LRs/edit?usp=sharing';
+
+      function init() {
+        Tabletop.init( { key: public_spreadsheet_url,
+                         callback: showInfo,
+                         simpleSheet: true } );
+      }
+
+      window.addEventListener('DOMContentLoaded', init)
+
+      function showInfo(data) {
+        // data comes through as a simple array since simpleSheet is turned on
+        alert("Successfully processed " + data.length + " rows!")
+        document.getElementById("food").innerHTML = "<strong>Foods:</strong> " + [ data[0].Name, data[1].Name, data[2].Name ].join(", ");
+        console.log(data);
+      }
+
+      document.write("The published spreadsheet is located at <a target='_new' href='" + public_spreadsheet_url + "'>" + public_spreadsheet_url + "</a>");        
+    </script>
+  </body>
+</html>
